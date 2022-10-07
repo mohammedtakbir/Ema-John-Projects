@@ -14,7 +14,7 @@ function App() {
       element: <Main />,
       children: [
         {
-          index: true,
+          path: '/',
           element: <Shop />
         },
         {
