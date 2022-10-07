@@ -5,18 +5,21 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 import { addToDb, getStoredCart } from '../../utilities/fakedb'
+import { useLoaderData } from 'react-router-dom';
 const Shop = () => {
     //? declare a state for products
-    const [products, setProducts] = useState([]);
     //? lift up the state--> product component e state declare na kore 1 level opore uthaiya shop component e state declare korse. jate cart-container e state er value access kora jay
     const [cart, setCart] = useState([]);
-
+    
     //? load data from public folder
+    /* const [products, setProducts] = useState([]);
     useEffect(() => {
         fetch('products.json')
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, []);
+    }, []); */
+    //* using useLoaderData hook
+    const products = useLoaderData(); 
 
     //? jekhan thika cart er data update kora hoitase, seikhan thikai data load korte hobe
     useEffect(() => {
