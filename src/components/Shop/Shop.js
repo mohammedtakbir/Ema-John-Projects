@@ -4,13 +4,17 @@ import { useState } from 'react';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
-import { addToDb, getStoredCart } from '../../utilities/fakedb'
+import { addToDb, deleteShoppingCart, getStoredCart } from '../../utilities/fakedb'
 import { useLoaderData } from 'react-router-dom';
 const Shop = () => {
     //? declare a state for products
     //? lift up the state--> product component e state declare na kore 1 level opore uthaiya shop component e state declare korse. jate cart-container e state er value access kora jay
     const [cart, setCart] = useState([]);
-    
+    //* clear cart
+    const clearCart = () => {
+        setCart([]);
+        deleteShoppingCart();
+    }
     //? load data from public folder
     /* const [products, setProducts] = useState([]);
     useEffect(() => {
@@ -66,7 +70,7 @@ const Shop = () => {
                 }
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart} clearCart={clearCart}></Cart>
             </div>
         </div>
     );
