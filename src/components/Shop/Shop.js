@@ -5,7 +5,7 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 import { addToDb, deleteShoppingCart, getStoredCart } from '../../utilities/fakedb'
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 const Shop = () => {
     //? declare a state for products
     //? lift up the state--> product component e state declare na kore 1 level opore uthaiya shop component e state declare korse. jate cart-container e state er value access kora jay
@@ -23,7 +23,7 @@ const Shop = () => {
             .then(data => setProducts(data))
     }, []); */
     //* using useLoaderData hook
-    const products = useLoaderData(); 
+    const products = useLoaderData();
 
     //? jekhan thika cart er data update kora hoitase, seikhan thikai data load korte hobe
     useEffect(() => {
@@ -37,7 +37,7 @@ const Shop = () => {
                 savedCart.push(addedProduct);
             }
         }
-        setCart(savedCart); 
+        setCart(savedCart);
         //? products er opor depend kore useEffect execute hobe
         //? products er data chenge hole useEffectr execute hobe
     }, [products])
@@ -45,10 +45,10 @@ const Shop = () => {
     const handleAddToCart = (selectedProduct) => {
         const exists = cart.find(product => product.id === selectedProduct.id);
         let newCart = [];
-        if(!exists){
+        if (!exists) {
             selectedProduct.quantity = 1;
             newCart = [...cart, selectedProduct];
-        }else{
+        } else {
             const rest = cart.filter(product => product.id !== selectedProduct.id);
             exists.quantity = exists.quantity + 1;
             newCart = [...rest, exists]
@@ -70,7 +70,11 @@ const Shop = () => {
                 }
             </div>
             <div className="cart-container">
-                <Cart cart={cart} clearCart={clearCart}></Cart>
+                <Cart cart={cart} clearCart={clearCart}>
+                    <Link to='/orders'>
+                        <button>Review Order</button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );
